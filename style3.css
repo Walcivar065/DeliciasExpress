@@ -1,0 +1,29 @@
+.typewriter {
+  overflow: hidden; /* Para ocultar el texto antes de la animación */
+   /* Simulación del cursor de escritura */
+  white-space: nowrap; /* Evita el salto de línea */
+  margin: 0 auto; /* Centra el texto */
+  letter-spacing: .15em; /* Espaciado entre letras */
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+

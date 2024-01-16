@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Meta tags requeridos -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+   <!-- Tu archivo CSS personalizado -->
+
+   <style>
+    /* Estilo para establecer la imagen de fondo en el cuerpo */
+    body {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           min-height: 100vh; /* Asegura que el contenido se ajuste al menos al 100% de la altura de la ventana */
+           margin: 0; /* Elimina el margen predeterminado del cuerpo */
+           background-image: url("IMAGENES/fondo-pedido.png");
+           background-size: cover;
+           background-repeat: no-repeat;
+       }
+
+       /* Estilos para el formulario */
+       form {
+           background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para el formulario */
+           padding: 20px;
+           border-radius: 10px;
+           box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+       }
+       h1, h2 {
+           text-align: center;
+       }
+       label {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           margin-bottom: -20px; /* Elimina el margen inferior */
+       }
+  
+    button {
+      background-color: rgb(198, 218, 16);
+    }
+     
+    h1 {
+      color: rgb(13, 14, 13);
+    }
+    th {
+      color: rgb(8, 11, 8);
+    }
+
+    .cancel-button {
+      background-color: red;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .submit-button {
+      background-color: green;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    .cart-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    display: none;
+    max-width: 600px;
+    text-align: center;
+}
+        /* Estilos para la animación del botón */
+        .showing-summary {
+            background-color: #ff1100 !important;
+        }
+      
+       /* Otros estilos personalizados aquí */
+    /* Animación para cambiar el tipo de letra del encabezado*/
+    @keyframes changeFont {
+        0% { font-family: 'Arial', sans-serif; }
+        25% { font-family: 'Times New Roman', serif; }
+        50% { font-family: 'Courier New', monospace; }
+        75% { font-family: 'Georgia', serif; }
+        100% { font-family: 'Impact', sans-serif; }
+    }
+
+    h1 {
+        animation: changeFont 5s infinite alternate; /* 5 segundos, animación alternada */
+    }
+
+    p {
+    font-family: 'Impact', sans-serif; /* Cambia aquí el tipo de letra deseado */
+    color: #000000;
+    font-size: 20px;
+    margin: 5px 0;
+}
+input::placeholder {
+    font-size: 14px; /* Tamaño de fuente deseado */
+    /* Otros estilos personalizados */
+}
+  </style>
+  <title>PEDIDO</title>
+</head>
+<body>
+<!-- Contenido principal -->
+<header class="jumbotron jumbotron-fluid">
+    <!-- Contenido del encabezado -->
+</header>
+
+<section class="container mt-5">
+    <h1>Rellene todos sus datos para su pedido</h1>
+    <form action="pago.php" method="post">
+        <!-- Detalles de entrega -->
+        <h2>Detalles de Entrega</h2>
+        <label><p>Nombres:   </p><input type="text" name="nombre" placeholder="Nombres"></label><br>
+        <label><p>Apellidos: </p><input type="text" name="apellido" placeholder="Apellidos"></label><br>
+        <label><p>Correo:    </p><input type="text" name="correo" placeholder="Correo"></label><br>
+        <label><p>Telefono:  </p><input type="text" name="telefono" placeholder="Telefono"></label><br>
+        <label><p>Dirección: </p><input type="text" name="direccion" placeholder="Dirección"></label><br>
+        <label><p>Ciudad:    </p><input type="text" name="ciudad" placeholder="Ciudad"></label><br>
+        <label><p>Cedula:    </p><input type="text" name="cedula" placeholder="Cedula" minlength="10" maxlength="10"></label><br>
+        <label><p>Codigo Postal: </p> <input type="text" name="zip" placeholder="Codigo postal"></label><br>
+        <label><p>Metodo de Pago: </p>
+            <select name="metodo">
+                <option value="tarjeta">Tarjeta de crédito</option>
+                <option value="tarjeta_debito">Tarjeta de débito</option>
+                <option value="paypal">PayPal</option>
+                <option value="efectivo">Paga al recibir</option>
+            </select>
+        </label><br>
+
+        <!-- Elementos del pedido -->
+        <h2>Productos</h2>
+        <label>
+        <p>Pizza $14.50 </p>
+        <input type="number" id="quantity1" name="quantity1" placeholder="Cantidad"></td>
+        </label><br>
+        <label>
+        <p>Hamburguesa $4.99</p>
+        <input type="number" id="quantity2" name="quantity2" placeholder="Cantidad"></td>
+        </label><br>  
+        <label>
+        <p>Alitas $8.50</p>
+        <input type="number" id="quantity3" name="quantity2" placeholder="Cantidad"></td>
+        </label><br>      
+    </form>
+        <!-- ... Agrega más elementos aquí si es necesario -->
+
+        <!-- Resumen del carrito -->
+        <div class="container text-center">
+            <button id="show-cart-summary" class="btn btn-primary mt-4">Mostrar Resumen del Carrito</button>
+        </div>
+        <div class="cart-notification" id="cart-summary">
+            <h4>Resumen del Carrito</h4>
+            <ul id="cart-items">
+                <li>
+                    <span>Producto: Pizza</span>
+                    <span>Cantidad: </span>
+                    <span>Precio: $14.50</span>
+                </li>
+                <li>
+                    <span>Producto: Hamburguesa</span>
+                    <span>Cantidad: </span>
+                    <span>Precio: $4.99</span>
+                </li>
+                <li>
+                    <span>Producto: Alitas</span>
+                    <span>Cantidad: </span>
+                    <span>Precio: $8.50</span>
+                </li>
+            </ul>
+            <p>Total: <span id="cart-total">$0.00</span></p>
+            
+        <!-- Botones -->
+        
+        <td colspan="1"><input type="submit" value="Enviar Orden" class="submit-button"></td>
+        <td colspan="2"><input type="button" value="Cancelar Orden" class="cancel-button"></td>
+</section>
+<footer class="container mt-5">
+    <div class="container text-center">
+        <p1>&copy; 2023 Delicias Express. Todos los derechos reservados.</p1>
+    </div>
+</footer>
+<script>
+    // Obtén referencias a los campos de cantidad
+    const quantityInput1 = document.getElementById('quantity1');
+    const quantityInput2 = document.getElementById('quantity2');
+    const quantityInput3 = document.getElementById('quantity3');
+    // Agrega más referencias para otros productos
+
+    // Agrega un evento para escuchar cambios en los campos de cantidad
+    quantityInput1.addEventListener('input', updateCartSummary);
+    quantityInput2.addEventListener('input', updateCartSummary);
+    quantityInput3.addEventListener('input', updateCartSummary);
+    // Agrega más eventos para otros productos
+
+    // Función para actualizar el resumen del carrito
+    function updateCartSummary() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotalElement = document.getElementById('cart-total');
+        // Limpia el contenido actual del resumen del carrito
+        cartItems.innerHTML = '';
+        let cartTotal = 0;
+        // Agrega información actualizada al resumen del carrito
+        if (quantityInput1.value > 0) {
+            const productName = 'Pizza';
+            const productQuantity = parseInt(quantityInput1.value);
+            const productPrice = 20; // Precio por unidad
+            const totalPrice = productQuantity * productPrice;
+            const itemHTML = `<li>
+                <span>Producto: ${productName}</span>
+                <span>Cantidad: ${productQuantity}</span>
+                <span>Precio total: $${totalPrice.toFixed(2)}</span>
+            </li>`;
+            cartTotal += totalPrice;
+            cartItems.innerHTML += itemHTML;
+        }
+
+        if (quantityInput2.value > 0) {
+            const productName = 'Hamburguesa';
+            const productQuantity = parseInt(quantityInput2.value);
+            const productPrice = 15; // Precio por unidad
+            const totalPrice = productQuantity * productPrice;
+            const itemHTML = `<li>
+                <span>Producto: ${productName}</span>
+                <span>Cantidad: ${productQuantity}</span>
+                <span>Precio total: $${totalPrice.toFixed(2)}</span>
+            </li>`;
+            cartTotal += totalPrice;
+            cartItems.innerHTML += itemHTML;
+        }
+        if (quantityInput3.value > 0) {
+            const productName = 'Alitas';
+            const productQuantity = parseInt(quantityInput3.value);
+            const productPrice = 10; // Precio por unidad
+            const totalPrice = productQuantity * productPrice;
+            const itemHTML = `<li>
+                <span>Producto: ${productName}</span>
+                <span>Cantidad: ${productQuantity}</span>
+                <span>Precio total: $${totalPrice.toFixed(2)}</span>
+            </li>`;
+            cartTotal += totalPrice;
+            cartItems.innerHTML += itemHTML;
+        }
+        cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+        // Agrega más bloques de código similares para otros productos
+
+        // Calcula el total general y actualiza si es necesario
+        // const totalAmount = ...; // Calcula el total general
+        // const totalHTML = `<li>Total: $${totalAmount.toFixed(2)}</li>`;
+        // cartItems.innerHTML += totalHTML;
+    }
+   
+</script>
+<script>
+    // Mostrar la notificación y agregar producto al carrito
+    const showCartSummaryButton = document.getElementById('show-cart-summary');
+    const cartNotification = document.getElementById('cart-summary');
+
+    showCartSummaryButton.addEventListener('click', () => {
+        // Cambiar estilo del botón temporalmente
+        showCartSummaryButton.classList.add('showing-summary');
+
+        // Mostrar la notificación
+        cartNotification.style.display = 'block';
+
+        // Ocultar la notificación y restaurar el estilo del botón después de unos segundos
+        setTimeout(() => {
+            cartNotification.style.display = 'none';
+            showCartSummaryButton.classList.remove('showing-summary');
+        }, 5000); // 3000 milisegundos = 3 segundos
+    });
+
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
